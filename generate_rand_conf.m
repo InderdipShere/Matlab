@@ -1,9 +1,12 @@
 
-natom     = 1000
-min_dist2 = 2
-L         = 100
+n
+natom     = 800
+min_dist2 = 1.0
+L         = 10.0 
 
 
+
+L_inv     = 1.0 /L ;
 min_dist2 = min_dist2*min_dist2 ;
 atom_count = 0;
 while (atom_count < natom)
@@ -15,14 +18,15 @@ while (atom_count < natom)
     r(1) = rx(i) - x ;
     r(2) = ry(i) - y ;
     r(3) = rz(i) - z ;
-    rij2 = dot(r,r)  ;
+    r    = r - round (r*L_inv) * L ;
+    rij2 = dot(r,r)  ;    
     if ( rij2< min_dist2) 
       overlap = true;
       break
     end    
   end
   if (not (overlap))
-    atom_count = atom_count + 1 ;
+    atom_count = atom_count + 1 
     rx(atom_count) = x ;
     ry(atom_count) = y ;
     rz(atom_count) = z ;
